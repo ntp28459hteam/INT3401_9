@@ -1,0 +1,48 @@
+Mô tả bài tập tuần 1
+Sinh viên: Trần Phương Nam
+Mã số sinh viên: 17021200
+
+Câu 1: DFS
+
+Khung thuật toán: Từ trạng thái bắt đầu, mở rộng ra các trạng thái kề, đưa vào diềm. DFS chọn ra các diềm được thêm vào mới nhất - có độ sâu là lớn nhắt để tiếp tục mở rộng. 
+
+Các trạng thái đã duyệt được đánh dấu lại để tránh trường hợp lặp lại.
+
+Trong hàm tìm kiếm có sử dụng các hàm có sẵn:
+
+getStartState(tuple(int,int)): trả về một Pacman Position (x, y)
+
+getSuccessor(tuple(int,int)): trả về một danh sách các tuple (trạng thái kế tiếp, hành động 
+rẽ, giá của đường đi)
+
+isGoalState(tuple(int,int)): trả về giá trị boolean là true nếu tham số đầu vào là trạng thái
+kết thúc
+
+Câu 2: BFS
+
+Tương tự thuật toán DFS, chỉ thay đổi thứ tự lấy các nút ra khỏi diềm bằng cách sử dụng hàng đợi thay cho ngăn xếp
+
+Câu 3: UCS
+
+Mở rộng của thuật toán BFS, các nút được lấy ra khỏi diềm sớm hơn dựa vào hàm g(n)tính khoảng cách từ nút hiện tại đến nút bắt đầu
+
+Câu 4: A*
+
+Tương tự thuật toán UCS, thay đổi hàm đánh giá g(n) bằng hàm đánh giá f(n) = g(n) + h(n)
+
+Câu 5: Tìm 4 góc
+
+CornersProblem
+self.corners: 4 góc của bài toán
+
+Các hàm cần triển khai trong lớp CornersProblem:
+getStartState(): trả về tuple(vị trí bắt đầu, tuple(<3 góc còn lại>))
+isGoalState(<State> tuple(vị trí bắt đầu, tuple(<3 góc còn lại>))): kiểm tra xem trạng thái hiện tại state có phải là trạng thái kết thúc không
+getSuccessor(): trả về danh sách các tuple(trạng thái, hành động rẽ, giá của đường đi)
+
+trạng thái: tuple(vị trí kế tiếp, <các góc chưa được duyệt)
+Câu 6: Cài đặt hàm đánh giá cornersHeuristic ăn hết 4 góc
+
+Câu 7: Cài đặt hàm đánh giá foodHeuristic để ăn hết thức ăn 
+
+Câu 8: Cài đặt tác nhân ăn thức ăn ở gần nhất
