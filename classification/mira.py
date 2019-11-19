@@ -61,7 +61,40 @@ class MiraClassifier:
         representing a vector of values.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        # util.raiseNotDefined()
+        f = trainingData[0]
+        # print (len(f.keys()))
+
+        bestWeight = util.Counter()
+        bestCorrect = 0.0
+        weights = self.weights.copy()
+        for c in Cgrid:
+            self.weights = weights.copy()
+            for iteration in range(self.max_iterations):
+                print ("Starting iteration ", iteration, " ...")
+                for i in range(len(trainingData)):
+                    f = trainingData[i]
+                    ytrue = trainingLabels[i]
+                    # max_score, ypred = max([(f * self.weights[y], y) for y in self.legalLabels])
+                    ypred = self.classify([f])[0]
+                    tau = min(c, ((self.weights[ypred] - self.weights[ytrue]) * f + 1.0) / (2.0 * (f * f)))
+                    f_tau = f.copy()
+                    f_tau.divideAll(1.0 / tau)
+                    if ypred != ytrue:
+                        self.weights[ypred] -= f_tau
+                        self.weights[ytrue] += f_tau
+            guesses = self.classify(validationData)
+            # print guesses
+            ytrues = validationLabels
+            correct = 0
+            for i in range(len(validationData)):
+                if guesses[i] == ytrues[i]:
+                    correct += 1
+            if correct > bestCorrect:
+                bestCorrect = correct
+                bestWeight = self.weights
+
+        self.weights = bestWeight    
 
     def classify(self, data ):
         """

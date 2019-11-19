@@ -78,12 +78,39 @@ def enhancedFeatureExtractorDigit(datum):
     features =  basicFeatureExtractorDigit(datum)
 
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-
+    # util.raiseNotDefined()
+    
+    print (numberOfComponents(features))
     return features
-
-
-
+def generateNB(s,features,visited):
+    neighbor=[(s[0]-1,s[1]-1),(s[0]-1,s[1]),(s[0]-1,s[1]+1),(s[0],s[1]-1),(s[0],s[1]+1),(s[0]+1,s[1]-1),(s[0]+1,s[1]),(s[0]+1,s[1]+1)]
+    if len(neighbor)==0:
+        return []
+    
+    neighbors=[x for x in neighbor if features[x]==1&visited[x]==False] 
+    print neighbors
+    return neighbors
+def bfs(s,features,visited):
+    queue=[s]
+    visited[s]=True
+    while queue:
+        s=queue.pop(0)
+        #print (s,visited[s])
+        for x in generateNB(s,features,visited):
+            if visited[x]==False:
+                queue.append(x)
+                visited[x]=True
+def numberOfComponents(features):
+    visited=util.Counter()
+    for s in features:
+        visited[s]=False
+    count=0
+    for s in features:
+        if visited[s]==False:
+            bfs(s,features,visited)
+            count+=1
+        #print visited
+    return count
 def basicFeatureExtractorPacman(state):
     """
     A basic feature extraction function.
@@ -113,6 +140,7 @@ def enhancedFeatureExtractorPacman(state):
     """
 
     features = basicFeatureExtractorPacman(state)[0]
+    print (dir(state))
     for action in state.getLegalActions():
         features[action] = util.Counter(features[action], **enhancedPacmanFeatures(state, action))
     return features, state.getLegalActions()
@@ -124,7 +152,8 @@ def enhancedPacmanFeatures(state, action):
     """
     features = util.Counter()
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    # util.raiseNotDefined()
+    # print dir(state)
     return features
 
 

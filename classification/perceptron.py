@@ -51,11 +51,33 @@ class PerceptronClassifier:
         # DO NOT ZERO OUT YOUR WEIGHTS BEFORE STARTING TRAINING, OR
         # THE AUTOGRADER WILL LIKELY DEDUCT POINTS.
 
+        #y = trainingLabels[0]
+        #print self.weights
+        #print self.legalLabels
+        #print trainingData[0].values()
+        # print (trainingData[0].values())
+        # print (validationData[0].values())
+
+        print (trainingData[0])
         for iteration in range(self.max_iterations):
-            print "Starting iteration ", iteration, "..."
+            print ("Starting iteration ", iteration, "...")
+            # for i in range(len(trainingData)):
+            #     "*** YOUR CODE HERE ***"
+            #     ## util.raiseNotDefined()
+            #     # f = trainingData[i]
+            #     # ytrue = trainingLabels[i]
+                
+            #     # score_max, ypred = max([(f * self.weights[y], y) for y in self.legalLabels])
+            #     # if ypred != ytrue:
+            #     #     self.weights[ypred] -= f
+            #     #     self.weights[ytrue] += f
             for i in range(len(trainingData)):
-                "*** YOUR CODE HERE ***"
-                util.raiseNotDefined()
+                f = trainingData[i]
+                ytrue = trainingLabels[i]
+                ypred = self.classify([f])[0] # ypred = self.classify(f)[0] # Wrong!
+                if ypred != ytrue:
+                    self.weights[ypred] -= f
+                    self.weights[ytrue] += f
 
     def classify(self, data ):
         """
@@ -77,9 +99,15 @@ class PerceptronClassifier:
         """
         Returns a list of the 100 features with the greatest weight for some label
         """
-        featuresWeights = []
+        #featuresWeights = []
 
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        #util.raiseNotDefined()
+
+        wy = self.weights[label]
+        wy = sorted([(v, k) for k, v in wy.items()], reverse=True)
+        #featuresWeights = [ wy[-100:]]
+        featuresWeights = [e[1] for e in wy[:100]]
+        print featuresWeights
 
         return featuresWeights
